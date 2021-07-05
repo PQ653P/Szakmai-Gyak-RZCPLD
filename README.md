@@ -1,2 +1,2 @@
-# Szakmai-Gyak-RZCPL
+# Szakmai-Gyak-RZCPLD
 Szakmai gyakorlati github
