@@ -7,6 +7,15 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+  felhasznaloNev : string = "";
+  jelszo : string = "";
+  log : string = "";
   constructor() {}
+  login(){
+    if (this.felhasznaloNev== "admin" && this.jelszo == "password"){
+      this.log = "Sikeres bejelentkezés!"
+    }
+    else this.log ="Ismeretlen felhasználó!"
+  }
 
 }

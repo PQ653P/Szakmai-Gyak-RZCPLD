@@ -1,20 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Login
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <ion-input placeholder="Felhasználónév" [(ngModel)]="felhasznaloNev"></ion-input>
+  <ion-input placeholder="Jelszó" type="password" [(ngModel)]="jelszo"></ion-input>
+  <ion-button (click)="login()" expand="block">LOGIN</ion-button>
+  <p>{{log}}</p>
   </div>
 </ion-content>
