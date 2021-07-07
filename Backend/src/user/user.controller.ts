@@ -3,9 +3,11 @@ import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
+
+    constructor(private readonly userService: UserService) {}
     
     @Post("/register")
-    insertUser(): string{
-        return this.insertUser()
+    insertUser(@Body() request:any ): string{
+        return this.userService.insertUser(request.username,request.password);
     }
 }

@@ -10,14 +10,13 @@ export class UserService {
     constructor(@InjectModel('user') private readonly userModel: Model<User>)
     {}
 
-    async insertUser(username: string, password: string){      
+    insertUser(username: string, password: string){      
         const newUser = new this.userModel({
             username:username,
             password:password,
         });
-        const result = await newUser.save();
-        console.log(result);
-        return 'userId';
+        newUser.save().then(res => console.log(res));
+        return "OK";
     }
 
 }
