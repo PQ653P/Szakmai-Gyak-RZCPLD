@@ -1,17 +1,17 @@
 import { Injectable, Post } from '@nestjs/common';
-import { User } from './user.model';
+import { Auth } from './auth.model';
 import {InjectModel} from '@nestjs/mongoose'
 import { Model } from 'mongoose';
 
 @Injectable()
-export class UserService {
-    private users: User[] = [];
+export class AuthService {
+    private users: Auth[] = [];
 
-    constructor(@InjectModel('user') private readonly userModel: Model<User>)
+    constructor(@InjectModel('user') private readonly AuthModel: Model<Auth>)
     {}
 
     insertUser(username: string, password: string){      
-        const newUser = new this.userModel({
+        const newUser = new this.AuthModel({
             username:username,
             password:password,
         });

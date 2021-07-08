@@ -1,11 +1,11 @@
 import * as mongoose from 'mongoose';
 
-export const UserSchema = new mongoose.Schema({
+export const AuthSchema = new mongoose.Schema({
     username: { type: String,required: true},
     password: { type: String, required:true},
 });
 
-export interface User{
+export interface Auth{
     username: string;
     password: string;
 }
