@@ -7,8 +7,8 @@ export class AuthController {
     constructor(private readonly authService: AuthService) {}
     
     @Post("/register")
-    insertUser(@Body() request:any ): string{
-        return this.authService.insertUser(request.username,request.password);
+    async insertUser(@Body() request:any ){
+        return await this.authService.insertUser(request.username,request.password);
     }
     @Post("/login")
     getUser(@Body() request: any) : any{

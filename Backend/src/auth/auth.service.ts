@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { isNull } from 'util';
 import { resourceLimits } from 'worker_threads';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
+import { exception } from 'console';
 
 @Injectable()
 export class AuthService {
@@ -13,17 +14,20 @@ export class AuthService {
     constructor(@InjectModel('users') private readonly AuthModel: Model<Auth>)
     {}
 
-    insertUser(username: string, password: string){      
+    async insertUser(username: string, password: string){      
         const newUser = new this.AuthModel({
             username:username,
             password:password,
         });
+        if (password.length <6) throw new exception("Password must contain 6 or more characters!");
+        const log = this.AuthModel.findOne({username:username});
+        if(await log.count() != 0) throw new exception("Username Already Exists!");
         newUser.save().then(res => console.log(res));
         return "OK";
     }
     async getUser(username:string,password:string){
            const log = this.AuthModel.findOne({username:username,password:password});
            if(await log.count() != 0) return "OK!";
-           else return "Fail";
+           else return "Invalid username or password";
     }
 }
