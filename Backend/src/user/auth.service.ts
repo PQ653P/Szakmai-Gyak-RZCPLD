@@ -7,7 +7,7 @@ import { Model } from 'mongoose';
 export class AuthService {
     private users: Auth[] = [];
 
-    constructor(@InjectModel('user') private readonly AuthModel: Model<Auth>)
+    constructor(@InjectModel('users') private readonly AuthModel: Model<Auth>)
     {}
 
     insertUser(username: string, password: string){      

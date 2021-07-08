@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import {MongooseModule} from '@nestjs/mongoose'
 
 @Module({
-  imports: [AuthModule, MongooseModule.forRoot('mongodb://localhost:27017/nest')],
+  imports: [AuthModule, MongooseModule.forRoot('mongodb+srv://QYRYI4:XOINlcNHW93V0QSm@cluster0.gfojh.mongodb.net/test')],
   controllers: [AppController],
   providers: [AppService],
 })
