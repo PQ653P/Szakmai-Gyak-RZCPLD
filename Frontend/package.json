@@ -13,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/schematics": "^12.1.1",
     "@angular/common": "~12.0.1",
     "@angular/core": "~12.0.1",
     "@angular/forms": "~12.0.1",
@@ -25,8 +26,12 @@
     "@capacitor/keyboard": "1.0.2",
     "@capacitor/status-bar": "1.0.2",
     "@ionic/angular": "^5.5.2",
+<<<<<<< Updated upstream
     "@okta/okta-auth-js": "^5.2.1",
     "angular-oauth2-oidc": "^10.0.3",
+=======
+    "firebase": "^8.7.0",
+>>>>>>> Stashed changes
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
@@ -37,7 +42,7 @@
     "@angular-eslint/eslint-plugin": "~12.0.0",
     "@angular-eslint/eslint-plugin-template": "~12.0.0",
     "@angular-eslint/template-parser": "~12.0.0",
-    "@angular/cli": "~12.0.1",
+    "@angular/cli": "12.0.5",
     "@angular/compiler": "~12.0.1",
     "@angular/compiler-cli": "~12.0.1",
     "@angular/language-service": "~12.0.1",
