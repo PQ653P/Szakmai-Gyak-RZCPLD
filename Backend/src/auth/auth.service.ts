@@ -14,20 +14,23 @@ export class AuthService {
     constructor(@InjectModel('users') private readonly AuthModel: Model<Auth>)
     {}
 
-    async insertUser(username: string, password: string){      
+    async insertUser(email:string, firstName: string, lastName:string, password: string){      
         const newUser = new this.AuthModel({
-            username:username,
+            email:email,
+            firstName:firstName,
+            lastName:lastName,
             password:password,
         });
-        if (password.length <6) throw new exception("Password must contain 6 or more characters!");
-        const log = this.AuthModel.findOne({username:username});
-        if(await log.count() != 0) throw new exception("Username Already Exists!");
+        if (password.length <6) return "Password must contain 6 or more characters!";
+        const log = this.AuthModel.findOne({email:email});
+        if(await log.count() != 0) return "Email Already Registered!";
         newUser.save().then(res => console.log(res));
         return "OK";
     }
-    async getUser(username:string,password:string){
-           const log = this.AuthModel.findOne({username:username,password:password});
-           if(await log.count() != 0) return "OK!";
-           else return "Invalid username or password";
+    async getUser(email:string,password:string){
+            const log = this.AuthModel.findOne({email:email,password:password});
+            if(await log.count() != 0) return "OK!";
+           else return "Invalid email or password";
     }
+
 }
