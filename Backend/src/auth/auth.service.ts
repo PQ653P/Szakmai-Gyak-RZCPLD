@@ -10,21 +10,16 @@ import { exception } from 'console';
 @Injectable()
 export class AuthService {
 
-
-    updateUser(email: any): any {
-        
-    }
-
-
-    async getAllUsers(email: any, password: any){
-        return await this.AuthModel.find().then(res => console.log(res));
-    }
     private users: Auth[] = [];
 
     constructor(@InjectModel('users') private readonly AuthModel: Model<Auth>)
     {}
+    
+    async getAllUsers(){
+        return await this.AuthModel.find();
+    }
 
-    async insertUser(email:string, firstName: string, lastName:string, password: string){      
+    async createUser(email:string, firstName: string, lastName:string, password: string){      
         const newUser = new this.AuthModel({
             email:email,
             firstName:firstName,
