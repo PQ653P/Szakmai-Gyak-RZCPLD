@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { request } from 'express';
 import { AuthService } from './auth.service';
 
@@ -15,13 +15,20 @@ export class AuthController {
     getUser(@Body() request: any) : any{
        return this.authService.getUser(request.email,request.password);
    }
-   @Delete("/delete")
-   deleteUser(@Body() request:any):any{
-    return this.authService.deleteUser(request.email);
+   @Delete("/delete/:id")
+   deleteUser(@Param('id') id):any{
+    return this.authService.deleteUser(id);
+   }
+
+   @Put("/update/:id")
+   updateUser(@Param('id') id : string , @Body() request:any){
+       console.log(id,request)
+    return this.authService.updateUser(id,request.email, request.firstName, request.lastName, request.password);
    }
 
    @Get("/getall")
    async getAllUsers(@Body() request:any){
         return await this.authService.getAllUsers();
    }
+
 }

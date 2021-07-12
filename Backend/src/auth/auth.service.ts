@@ -19,6 +19,17 @@ export class AuthService {
         return await this.AuthModel.find();
     }
 
+    async updateUser(id : string, email:string, firstName: string, lastName:string, password: string){
+        const user = this.AuthModel.findOne({_id:id});
+        await user.update({
+            email:email,
+            firstName:firstName,
+            lastName:lastName,
+            password:password,
+        })
+        return "OK!";
+    }
+
     async createUser(email:string, firstName: string, lastName:string, password: string){      
         const newUser = new this.AuthModel({
             email:email,
@@ -39,11 +50,11 @@ export class AuthService {
            else return "Invalid email or password";
     }
 
-    async deleteUser(email:string){
-        const log = this.AuthModel.findOne({email:email});
+    async deleteUser(id){
+        const log = this.AuthModel.findOne({_id:id});
             if(await log.count() == 0) return "Can't find user, Wrong username or password!";
 
-        log.remove({email:email}).exec();
+        log.remove({_id:id}).exec();
         return "User Deleted!";
     }
 
