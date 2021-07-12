@@ -6,20 +6,21 @@ import { isNull } from 'util';
 import { resourceLimits } from 'worker_threads';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { exception } from 'console';
+import { response } from 'express';
 
 @Injectable()
 export class AuthService {
 
     private users: Auth[] = [];
 
-    constructor(@InjectModel('users') private readonly AuthModel: Model<Auth>)
+    constructor(@InjectModel('user') private readonly AuthModel: Model<Auth>)
     {}
     
-    async getAllUsers(){
+    async index(){
         return await this.AuthModel.find();
     }
 
-    async updateUser(id : string, email:string, firstName: string, lastName:string, password: string){
+    async update(id : string, email:string, firstName: string, lastName:string, password: string){
         const user = this.AuthModel.findOne({_id:id});
         await user.update({
             email:email,
@@ -30,8 +31,8 @@ export class AuthService {
         return "OK!";
     }
 
-    async createUser(email:string, firstName: string, lastName:string, password: string){      
-        const newUser = new this.AuthModel({
+    async store(email:string, firstName: string, lastName:string, password: string){      
+        const user = new this.AuthModel({
             email:email,
             firstName:firstName,
             lastName:lastName,
@@ -41,20 +42,19 @@ export class AuthService {
         if(!email.includes('@')) return "Email Address must Contain @";
         const log = this.AuthModel.findOne({email:email});
         if(await log.count() != 0) return "Email Already Registered!";
-        newUser.save().then(res => console.log(res));
-        return "OK";
+        user.save().then(res => console.log(res));
+        return user;
     }
-    async getUser(email:string,password:string){
-            const log = this.AuthModel.findOne({email:email,password:password});
-            if(await log.count() != 0) return "OK!";
+    async show(email:string,password:string){
+            const user = this.AuthModel.findOne({email:email,password:password});
+            if(await user.count() != 0) return "OK!";
            else return "Invalid email or password";
     }
 
-    async deleteUser(id){
-        const log = this.AuthModel.findOne({_id:id});
-            if(await log.count() == 0) return "Can't find user, Wrong username or password!";
-
-        log.remove({_id:id}).exec();
+    async destroy(id){
+        const user = this.AuthModel.findOne({_id:id});
+            if(await user.count() == 0) return "Can't find user, Wrong Id! ";
+        user.remove({_id:id}).exec();
         return "User Deleted!";
     }
 

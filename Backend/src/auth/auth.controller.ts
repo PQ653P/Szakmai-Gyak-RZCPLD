@@ -7,28 +7,28 @@ export class AuthController {
 
     constructor(private readonly authService: AuthService) {}
     
-    @Post("/register")
-    createtUser(@Body() request:any ): any{
-        return this.authService.createUser(request.email, request.firstName, request.lastName, request.password);
+    @Post("/store")
+    store(@Body() request:any ): any{
+        return this.authService.store(request.email, request.firstName, request.lastName, request.password);
     }
-    @Post("/login")
-    getUser(@Body() request: any) : any{
-       return this.authService.getUser(request.email,request.password);
+    @Post("/show")
+    show(@Body() request: any) : any{
+       return this.authService.show(request.email,request.password);
    }
-   @Delete("/delete/:id")
-   deleteUser(@Param('id') id):any{
-    return this.authService.deleteUser(id);
+   @Delete("/destroy/:id")
+   destroy(@Param('id') id):any{
+    return this.authService.destroy(id);
    }
 
    @Put("/update/:id")
-   updateUser(@Param('id') id : string , @Body() request:any){
+   update(@Param('id') id : string , @Body() request:any){
        console.log(id,request)
-    return this.authService.updateUser(id,request.email, request.firstName, request.lastName, request.password);
+    return this.authService.update(id,request.email, request.firstName, request.lastName, request.password);
    }
 
-   @Get("/getall")
-   async getAllUsers(@Body() request:any){
-        return await this.authService.getAllUsers();
+   @Get("/index")
+   async index(@Body() request:any){
+        return await this.authService.index();
    }
 
 }
