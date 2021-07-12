@@ -27,6 +27,7 @@ export class AuthService {
             password:password,
         });
         if (password.length <6) return "Password must contain 6 or more characters!";
+        if(!email.includes('@')) return "Email Address must Contain @";
         const log = this.AuthModel.findOne({email:email});
         if(await log.count() != 0) return "Email Already Registered!";
         newUser.save().then(res => console.log(res));
