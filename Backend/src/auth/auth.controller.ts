@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { createHash, Hash } from 'crypto';
 import { request } from 'express';
 import { AuthService } from './auth.service';
 
@@ -11,18 +12,17 @@ export class AuthController {
     store(@Body() request:any ): any{
         return this.authService.store(request.email, request.firstName, request.lastName, request.password);
     }
-    @Post("/show")
-    show(@Body() request: any) : any{
-       return this.authService.show(request.email,request.password);
+    @Post("/login")
+    login(@Body() request: any){
+       return this.authService.login(request.email,request.password);
    }
    @Delete("/destroy/:id")
-   destroy(@Param('id') id):any{
+   destroy(@Param('id') id){
     return this.authService.destroy(id);
    }
 
    @Put("/update/:id")
    update(@Param('id') id : string , @Body() request:any){
-       console.log(id,request)
     return this.authService.update(id,request.email, request.firstName, request.lastName, request.password);
    }
 
@@ -31,4 +31,8 @@ export class AuthController {
         return await this.authService.index();
    }
 
+   @Get("/show/:id")
+    show(@Param('id') id : string){
+        return this.authService.show(id);
+   }
 }

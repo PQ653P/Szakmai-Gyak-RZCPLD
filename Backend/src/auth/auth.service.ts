@@ -7,6 +7,7 @@ import { resourceLimits } from 'worker_threads';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { exception } from 'console';
 import { response } from 'express';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -20,9 +21,17 @@ export class AuthService {
         return await this.AuthModel.find();
     }
 
+    async show(id: any){
+        return await this.AuthModel.find().where({_id:id});
+    }
+
     async update(id : string, email:string, firstName: string, lastName:string, password: string){
         const user = this.AuthModel.findOne({_id:id});
-        await user.update({
+        if (password.length <6) return "Password must contain 6 or more characters!";
+        if(!email.includes('@')) return "Email Address must Contain @";
+        const emailInUse = this.AuthModel.findOne({email:email});
+        if(await emailInUse.count() != 0) return "Email Already in use.";
+        await user.updateOne({
             email:email,
             firstName:firstName,
             lastName:lastName,
@@ -31,30 +40,33 @@ export class AuthService {
         return "OK!";
     }
 
-    async store(email:string, firstName: string, lastName:string, password: string){      
+    async store(email:string, firstName: string, lastName:string, password: string){
+        const hash = await bcrypt.hash(password,6);
         const user = new this.AuthModel({
             email:email,
             firstName:firstName,
             lastName:lastName,
-            password:password,
+            password:hash,
         });
         if (password.length <6) return "Password must contain 6 or more characters!";
         if(!email.includes('@')) return "Email Address must Contain @";
-        const log = this.AuthModel.findOne({email:email});
-        if(await log.count() != 0) return "Email Already Registered!";
+        const emailInUse = this.AuthModel.findOne({email:email});
+        if(await emailInUse.count() != 0) return "Email Already Registered!";
         user.save().then(res => console.log(res));
         return user;
     }
-    async show(email:string,password:string){
-            const user = this.AuthModel.findOne({email:email,password:password});
-            if(await user.count() != 0) return "OK!";
-           else return "Invalid email or password";
+    async login(email:string,password:string){
+        const user = this.AuthModel.findOne({email:email});
+        const hash = (await user).password;
+        const isMatch = await bcrypt.compare(password, hash);
+        if(await user.count() == 0 || !isMatch) return "Can't find user!";
+        else return "OK!";
     }
 
     async destroy(id){
         const user = this.AuthModel.findOne({_id:id});
-            if(await user.count() == 0) return "Can't find user, Wrong Id! ";
-        user.remove({_id:id}).exec();
+        if(await user.count() == 0) return "Can't find user, Wrong Id!";
+        user.deleteOne({_id:id}).exec();
         return "User Deleted!";
     }
 
