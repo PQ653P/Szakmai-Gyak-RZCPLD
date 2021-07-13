@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Regisztráció
+    </ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+  <ion-content [fullscreen]="true">
+    <div id="container">
+    <ion-input placeholder="Vezetéknév" [(ngModel)]="vezeteknev"></ion-input>
+    <ion-input placeholder="Keresztnév" [(ngModel)]="keresztnev"></ion-input>
+    <ion-input placeholder="E-mail cím" type="email" [(ngModel)]="email"></ion-input>
+    <ion-input placeholder="Jelszó" type="password" [(ngModel)]="jelszo"></ion-input>
+    <ion-input placeholder="Jelszó újra" type="password" [(ngModel)]="jelszoUjra"></ion-input>
+    <ion-input placeholder="Taj szám" [(ngModel)]="tajszam"></ion-input>
+    <ion-button class="ion-margin-top" fill="outline" (click)="register()" expand="block">REGISZTRÁCIÓ</ion-button>
+  
+      <p class="forgot">Talán tetszik nektek ez a regisztráció?</p>
+    
+    
+    <p>{{log}}</p>
+    </div>
+  
+  </ion-content>
+
+
+

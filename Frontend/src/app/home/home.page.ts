@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+//import { SignupPage } from '../src/app/home/signup/signup.html';
 
 @Component({
   selector: 'app-home',
@@ -7,15 +10,25 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  felhasznaloNev : string = "";
+  email : string = "";
   jelszo : string = "";
   log : string = "";
-  constructor() {}
+ 
+  
+  constructor(public route: Router) {}
+
+  register()
+  {
+    this.route.navigate(['/register']);
+  }
+
   login(){
-    if (this.felhasznaloNev== "admin" && this.jelszo == "password"){
+    if (this.email== "test@test.com" && this.jelszo == "password"){
       this.log = "Sikeres bejelentkezés!"
     }
     else this.log ="Ismeretlen felhasználó!"
   }
+  
+  
 
 }

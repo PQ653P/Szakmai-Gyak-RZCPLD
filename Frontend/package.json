@@ -26,14 +26,10 @@
     "@capacitor/keyboard": "1.0.2",
     "@capacitor/status-bar": "1.0.2",
     "@ionic/angular": "^5.5.2",
-<<<<<<< Updated upstream
     "@okta/okta-auth-js": "^5.2.1",
     "angular-oauth2-oidc": "^10.0.3",
-=======
-    "firebase": "^8.7.0",
->>>>>>> Stashed changes
     "rxjs": "~6.6.0",
-    "tslib": "^2.0.0",
+    "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
