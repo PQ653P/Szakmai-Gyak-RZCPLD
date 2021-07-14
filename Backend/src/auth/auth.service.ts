@@ -57,9 +57,10 @@ export class AuthService {
     }
     async login(email:string,password:string){
         const user = this.AuthModel.findOne({email:email});
-        const hash = (await user).password;
+        const hash = (await user)?.password;
+        if(hash == null) return "Unknown Email Address.";
         const isMatch = await bcrypt.compare(password, hash);
-        if(await user.count() == 0 || !isMatch) return "Can't find user!";
+        if(await user.count() == 0 || !isMatch) return "Wrong Password";
         else return "OK!";
     }
 
